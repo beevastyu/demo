@@ -1,29 +1,11 @@
-import falcon
-import json
+from paste import deploy
+from paste import httpserver
 
-class HelloResource:
-    def on_get(self, req, resp):
-        res = {
-                'text': 'Hello World!!',
-                'method': req.method
-        }
-        resp.body = json.dumps(res)
+#def server_factory(global_conf, host, port):
+#    def serve(app):
+#        s = Server(app, host=host, port=port)
+#        s.serve_forever()
+#    return serve
 
-    def on_post(self, req, resp):
-        res = {
-                'text': 'Hello World!!',
-                'method': req.method
-        }
-        resp.body = json.dumps(res)
-
-endpoints = [
-#        ('/', Resource()),
-        ('/hello', HelloResource())
-        ]
-
-# Create the REST API
-api = falcon.API()
-
-# Register the URIs
-for route, resource in endpoints:
-    api.add_route(route, resource)
+app = deploy.loadapp('config:/root/demo/paste.ini')
+httpserver.serve(app, '192.168.10.159','8080')
