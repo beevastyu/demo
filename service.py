@@ -1,5 +1,10 @@
+import socket
 from paste import deploy
 from paste import httpserver
+
+cfg = 'paste.ini'
+host = socket.gethostbyname(socket.gethostname())
+port = 8080
 
 #def server_factory(global_conf, host, port):
 #    def serve(app):
@@ -7,5 +12,5 @@ from paste import httpserver
 #        s.serve_forever()
 #    return serve
 
-app = deploy.loadapp('config:/root/demo/paste.ini')
-httpserver.serve(app, '192.168.10.159','8080')
+app = deploy.loadapp('config:' + cfg, relative_to = '.')
+httpserver.serve(app, host, port)
