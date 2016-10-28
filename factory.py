@@ -16,10 +16,15 @@ class Resource:
         }
         resp.body = json.dumps(res)
 
+endpoints = [
+        ('/', Resource())
+        ]
+
 def app_factory(global_conf, **local_conf):
     print 'Creating WSGI app...'
     # Create the REST API
     api = falcon.API()
     # Register the URIs
-    api.add_route('/', Resource())
+    for route, resource in endpoints:
+        api.add_route(route, resource)
     return api
