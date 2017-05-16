@@ -28,3 +28,4 @@ def app_factory(global_conf, **local_conf):
     for route, resource in endpoints:
         api.add_route(route, resource)
     return api
+
